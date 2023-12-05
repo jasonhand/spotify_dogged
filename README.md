@@ -29,3 +29,5 @@ Next steps:
 
 - Turn this into a serverless function to run on a timer and does not include menu options
 - Create new fields that are calculations from fields queried from Spotify.
+
+![Datadog Log](img/datadog_log.png)
