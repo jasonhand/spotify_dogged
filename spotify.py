@@ -142,7 +142,6 @@ def extract_custom_artist_object(data, time_frame):
             'list': 'top_artists',
             'time_frame': time_frame,  # Add the time frame
             'artist': artist.get('name', 'Unknown Artist'),
-            'followers': artist.get('followers', {}).get('total', 0),
             'genres': ', '.join(artist.get('genres', []))
         }
         custom_artists.append(custom_artist)
