@@ -45,3 +45,6 @@ Next steps:
 - Count of artists played throughout the year
 - Top Artist (played most) w/ count of plays and count of minutes played
 - Top Artists
+
+Inspired by [Spotify Wrapped](https://spotify.com/wrapped)
+![](img/wrapped.png)
