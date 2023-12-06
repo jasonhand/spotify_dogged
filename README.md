@@ -31,3 +31,17 @@ Next steps:
 - Create new fields that are calculations from fields queried from Spotify.
 
 ![Datadog Log](img/datadog_log.png)
+
+
+## Dashboard Visualizations To-Do
+
+- Count of genres listened to
+- Top genres
+- Count of tracks played throughout the year
+- Top song (played most) w/ count of plays and the date of the first time played
+- Top Tracks (Artist & Title)
+- Count of minutes listened throughout the year (calculated also in terms of days nonstop)
+- Date with the most minutes played
+- Count of artists played throughout the year
+- Top Artist (played most) w/ count of plays and count of minutes played
+- Top Artists
