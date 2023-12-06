@@ -137,8 +137,8 @@ def extract_custom_artist_object(data, time_frame):
     for artist in data.get('items', []):
         # Extracting relevant information from each artist
         custom_artist = {
-            'host': 'python_app',
-            'service': 'spotify',
+           # 'host': 'python_app',
+           # 'service': 'spotify',
             'list': 'top_artists',
             'time_frame': time_frame,  # Add the time frame
             'artist': artist.get('name', 'Unknown Artist'),
