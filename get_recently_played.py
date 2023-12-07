@@ -48,15 +48,6 @@ def callback():
     else:
         return f'Error obtaining token: {token_response}'
 
-def get_time_range():
-    print("1. Short Term")
-    print("2. Medium Term")
-    print("3. Long Term")
-    time_choice = input("Enter your choice (1, 2, or 3): ")
-    time_range_mapping = {'1': 'short_term', '2': 'medium_term', '3': 'long_term'}
-    return time_range_mapping.get(time_choice, 'medium_term')
-
-
 # Function to get the access token
 def get_token(code):
     try:
@@ -138,6 +129,7 @@ def user_menu():
 
         elif main_choice == '2':
             print("Exiting...")
+            break
 
         for item in custom_data:
             print(item)
