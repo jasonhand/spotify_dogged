@@ -48,3 +48,10 @@ Next steps:
 
 Inspired by [Spotify Wrapped](https://spotify.com/wrapped)
 ![](img/wrapped.png)
+
+
+
+## Resources
+
+- [Spotify Top Artists & Tracks Documentation](https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks)
+- [Spotify Recently Played Documentation](https://developer.spotify.com/documentation/web-api/reference/get-recently-played)

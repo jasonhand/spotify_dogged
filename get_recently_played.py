@@ -96,23 +96,6 @@ def extract_recently_played_details(data):
         for item in data.get('items', [])
     ]
 
-def extract_custom_track_object(data, time_frame):
-    custom_tracks = []
-    for track in data.get('items', []):  # Safely access 'items' key
-        # Safely access 'artists' key, default to an empty list if not found
-        artists = track.get('artists', [])
-        custom_track = {
-            'host': 'python_app',
-            'service': 'spotify',
-            'list': 'top_tracks',
-            'time_frame': time_frame,  # Add the time frame
-            'artist': ', '.join(artist.get('name', 'Unknown Artist') for artist in artists),
-            'track': track.get('name', 'Unknown Track'),
-            'album': track.get('album', {}).get('name', 'Unknown Album')
-        }
-        custom_tracks.append(custom_track)
-    return custom_tracks
-
 def send_to_datadog(data):
     headers = {
         'Content-Type': 'application/json',
@@ -122,37 +105,6 @@ def send_to_datadog(data):
         response = requests.post(DATADOG_API_ENDPOINT, headers=headers, json=item)
         if response.status_code != 200:
             print(f"Failed to send data to Datadog: {response.text}")
-
-# Function to get the top tracks or artists
-def get_top(type, time_range):
-    headers = {'Authorization': f'Bearer {access_token}'}
-    params = {'limit': 50, 'time_range': time_range}  # Request 50 items with the specified time range
-    response = requests.get(f'{BASE_URL}/me/top/{type}', headers=headers, params=params)
-    return response.json()
-
-# Function to extract names from the Spotify response
-def extract_names(data, type):
-    if type == "tracks":
-        return [track['name'] for track in data['items']]
-    elif type == "artists":
-        return [artist['name'] for artist in data['items']]
-    else:
-        return []
-
-def extract_custom_artist_object(data, time_frame):
-    custom_artists = []
-    for artist in data.get('items', []):
-        # Extracting relevant information from each artist
-        custom_artist = {
-           # 'host': 'python_app',
-           # 'service': 'spotify',
-            'list': 'top_artists',
-            'time_frame': time_frame,  # Add the time frame
-            'artist': artist.get('name', 'Unknown Artist'),
-            'genres': ', '.join(artist.get('genres', []))
-        }
-        custom_artists.append(custom_artist)
-    return custom_artists
 
 # Initialize the Datadog API
 options = {
@@ -175,37 +127,17 @@ def user_menu():
 
     while True:
         print("\nChoose an option:")
-        print("1. Top Tracks")
-        print("2. Top Artists")
-        print("3. Recently Played Tracks")
-        print("4. Exit")
-        main_choice = input("Enter your choice (1, 2, 3, or 4): ")
+        print("1. Recently Played Tracks")
+        print("2. Exit")
+        main_choice = input("Enter your choice (1 or 2)" )
 
-        if main_choice == '4':
-            print("Exiting...")
-            break
-
-        if main_choice in ['1', '2']:
-            time_range = get_time_range()
-
-            if main_choice == '1':
-                data = get_top("tracks", time_range)
-                custom_data = extract_custom_track_object(data, time_range)
-            elif main_choice == '2':
-                data = get_top("artists", time_range)
-                custom_data = extract_custom_artist_object(data, time_range)
-
-        elif main_choice == '3':
+        if main_choice == '1':
             data = get_recently_played()
             custom_data = extract_recently_played_details(data)
-
-        print("\nDo you want to send the results to Datadog?")
-        print("1. Yes")
-        print("2. No")
-        send_to_dd = input("Enter your choice (1 or 2): ")
-
-        if send_to_dd == '1':
             send_to_datadog(custom_data)
+
+        elif main_choice == '2':
+            print("Exiting...")
 
         for item in custom_data:
             print(item)
